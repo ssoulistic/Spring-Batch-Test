@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'com.yourname'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // Spring Batch
+    implementation 'org.springframework.batch:spring-batch-core:4.3.7'
+
+    // Quartz Scheduler
+    implementation 'org.quartz-scheduler:quartz:2.3.2'
+
+    // Spring Context
+    implementation 'org.springframework:spring-context:5.3.21'
+
+    // Logging (optional)
+    implementation 'ch.qos.logback:logback-classic:1.2.10'
+}
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+    options.release = 17  // Java 17 사용
+}
