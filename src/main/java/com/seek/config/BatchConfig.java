@@ -1,5 +1,6 @@
 package com.seek.config;
 
+import com.seek.job.BusStationJob;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.EnableBatchProcessing;
@@ -44,6 +45,8 @@ public class BatchConfig {
         return (contribution, chunkContext) -> {
             // 여기에 API 호출 로직을 넣는다.
             System.out.println("API 호출 작업을 실행합니다...");
+            BusStationJob busStationJob = null;
+            busStationJob.createTasklet();
             // 예: API 호출 로직
             return RepeatStatus.FINISHED;
         };
