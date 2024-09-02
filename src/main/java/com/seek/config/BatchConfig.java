@@ -45,6 +45,7 @@ public class BatchConfig {
             // 여기에 API 호출 로직을 넣는다.
             System.out.println("API 호출 작업을 실행합니다...");
             // 예: API 호출 로직
+
             return RepeatStatus.FINISHED;
         };
     }
