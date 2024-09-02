@@ -48,6 +48,7 @@ public class BatchConfig {
             BusStationJob busStationJob = null;
             busStationJob.createTasklet();
             // 예: API 호출 로직
+
             return RepeatStatus.FINISHED;
         };
     }
