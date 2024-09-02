@@ -12,7 +12,7 @@ import java.util.Properties;
 import java.util.List;
 
 public class BusStationInfo {
-    public static void main(String[] args) {
+   public static void main(String[] args) {
         try {
             Properties properties = new Properties();
             properties.load(new FileInputStream("src/main/resources/config.properties"));
@@ -64,6 +64,18 @@ public class BusStationInfo {
             }
         } catch (Exception e) {
             e.printStackTrace();
+
         }
+        in.close();
+
+        // 출력 결과 확인
+        System.out.println("API 호출 결과: ");
+        System.out.println(response.toString());
+      } else {
+        System.out.println("API 호출 실패. 응답 코드: " + responseCode);
+      }
+    } catch (Exception e) {
+      e.printStackTrace();
     }
+  }
 }

@@ -1,5 +1,7 @@
-package com.yourname.job;
+package com.seek.job;
 
+import java.io.FileInputStream;
+import java.util.Properties;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -22,30 +24,30 @@ import java.util.Properties;
 @Component
 public class BusStationJob {
 
-    private final JobBuilderFactory jobBuilderFactory;
-    private final StepBuilderFactory stepBuilderFactory;
+  private final JobBuilderFactory jobBuilderFactory;
+  private final StepBuilderFactory stepBuilderFactory;
 
-    @Autowired
-    public BusStationJob(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
-        this.jobBuilderFactory = jobBuilderFactory;
-        this.stepBuilderFactory = stepBuilderFactory;
-    }
+  @Autowired
+  public BusStationJob(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory) {
+    this.jobBuilderFactory = jobBuilderFactory;
+    this.stepBuilderFactory = stepBuilderFactory;
+  }
 
-    @Bean
-    public Job createJob() {
-        return jobBuilderFactory.get("busStationJob")
-                .incrementer(new RunIdIncrementer())
-                .flow(createStep())
-                .end()
-                .build();
-    }
+  @Bean
+  public Job createJob() {
+    return jobBuilderFactory.get("busStationJob")
+        .incrementer(new RunIdIncrementer())
+        .flow(createStep())
+        .end()
+        .build();
+  }
 
-    @Bean
-    public Step createStep() {
-        return stepBuilderFactory.get("busStationStep")
-                .tasklet(createTasklet())
-                .build();
-    }
+  @Bean
+  public Step createStep() {
+    return stepBuilderFactory.get("busStationStep")
+        .tasklet(createTasklet())
+        .build();
+  }
 
     @Bean
     public Tasklet createTasklet() {
@@ -73,16 +75,17 @@ public class BusStationJob {
                 conn.setRequestMethod("GET");
                 conn.setRequestProperty("Content-Type", "application/json");
 
-                int responseCode = conn.getResponseCode();
-                if (responseCode == 200) { // 성공적으로 호출되었을 때
-                    BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-                    String inputLine;
-                    StringBuilder response = new StringBuilder();
 
-                    while ((inputLine = in.readLine()) != null) {
-                        response.append(inputLine);
-                    }
-                    in.close();
+        int responseCode = conn.getResponseCode();
+        if (responseCode == 200) { // 성공적으로 호출되었을 때
+          BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+          String inputLine;
+          StringBuilder response = new StringBuilder();
+
+          while ((inputLine = in.readLine()) != null) {
+            response.append(inputLine);
+          }
+          in.close();
 
                     // 출력 결과 확인
                     System.out.println("API 호출 결과: ");
@@ -94,7 +97,8 @@ public class BusStationJob {
                 e.printStackTrace();
             }
 
-            return RepeatStatus.FINISHED; // 성공적으로 종료
-        };
-    }
+
+      return RepeatStatus.FINISHED; // 성공적으로 종료
+    };
+  }
 }
